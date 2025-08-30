@@ -185,8 +185,12 @@ namespace AddressablesTools.Catalog
                     int splitIndex = internalId.IndexOf('#');
                     if (splitIndex != -1)
                     {
-                        int prefixIndex = int.Parse(internalId[..splitIndex]);
-                        internalId = string.Concat(InternalIdPrefixes[prefixIndex], internalId.AsSpan(splitIndex + 1));
+                        if (int.TryParse(internalId[..splitIndex], out int prefixIndex)
+                            && prefixIndex >= 0
+                            && prefixIndex < InternalIdPrefixes.Length)
+                        {
+                            internalId = string.Concat(InternalIdPrefixes[prefixIndex], internalId.AsSpan(splitIndex + 1));
+                        }
                     }
 
                     string providerId = ProviderIds[providerIndex];
