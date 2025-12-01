@@ -218,9 +218,11 @@ if (args.Length == 1)
         return;
     }
 
-    if (!string.Equals(Path.GetFileName(path), "catalog.json", StringComparison.OrdinalIgnoreCase))
+    var fileName = Path.GetFileName(path);
+    if (!string.Equals(fileName, "catalog.json", StringComparison.OrdinalIgnoreCase) &&
+        !string.Equals(fileName, "catalog.bin", StringComparison.OrdinalIgnoreCase))
     {
-        Console.WriteLine("only catalog.json is supported for drag&drop!");
+        Console.WriteLine("only catalog.json and catalog.bin are supported for drag&drop!");
         return;
     }
 
